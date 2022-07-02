@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Input } from "antd";
 import { FormOutlined } from "@ant-design/icons";
 
-const App = ({ description, id }) => {
+const App = ({ description, id, title }) => {
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
 
@@ -49,6 +49,7 @@ const App = ({ description, id }) => {
           </Button>,
         ]}
       >
+        <Input placeholder={title} className="!rounded-lg !m-1" />
         <Input placeholder={description} className="!rounded-lg !m-1" />
       </Modal>
     </>

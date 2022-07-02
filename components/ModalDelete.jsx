@@ -3,11 +3,11 @@ import { Button, Modal, Space, Tooltip } from "antd";
 const { confirm } = Modal;
 import { DeleteOutlined } from "@ant-design/icons";
 
-const showConfirm = (description) => {
+const showConfirm = (title) => {
   confirm({
     title: "Eliminar",
     icon: <ExclamationCircleOutlined />,
-    content: description,
+    content: title,
 
     onOk() {
       console.log("OK");
@@ -19,13 +19,13 @@ const showConfirm = (description) => {
   });
 };
 
-const App = ({ description }) => {
+const App = ({ title }) => {
   return (
     <Space wrap>
-      <Tooltip title={"Eliminar "+description}>
+      <Tooltip title={"Eliminar " + title}>
         <Button
           className="!w-full !border-none"
-          onClick={()=>showConfirm(description)}
+          onClick={() => showConfirm(title)}
           icon={<DeleteOutlined />}
         />
       </Tooltip>

@@ -23,7 +23,7 @@ const App = () => {
       <Card hoverable className="w-96 !rounded-lg !border-gray-300">
         {show.map((render) => {
           return (
-            <Todo key={render.id} id={render.id} description={render.title} />
+            <Todo key={render.id} id={render.id} description={render.description} title={render.title} />
           );
         })}
         <Add renders={renders} />
