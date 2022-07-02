@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import { Card } from "antd";
 import Add from "./Add";
 import Todo from "./Todo";
+import { getTasks } from "../api";
 
 const App = () => {
   const [show, setShow] = useState([]);
   useEffect(() => {
     const getTask = async () => {
-      const response = await fetch("http://localhost:3015/tasks");
-      const data = await response.json();
+      const data = await getTasks();
       setShow(data.tasks);
     };
     getTask();
