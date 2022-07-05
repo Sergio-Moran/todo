@@ -2,32 +2,50 @@ import React, { useState } from "react";
 import { Col, Row, Checkbox, Tooltip } from "antd";
 import ModalEdit from "./ModalEdit";
 import ModalDelete from "./ModalDelete";
+import { updateCompleted } from "../api";
 
-const Todo = ({ description, title }) => {
-  const [cambio, setCambio] = useState(false);
+const Todo = ({ description, title, id, isOk }) => {
+  const [change, setChange] = useState(isOk ? true : false);
+  const [completed, setCompleted] = useState({ isCompleted: false });
+
   const onChange = (e) => {
-    setCambio(e.target.checked);
+    setChange(e.target.checked);
+    setCompleted({
+      isCompleted: change,
+    });
+   /*  console.log(change);
+    if(change){
+      console.log(change + 'a');
+    }else{
+      console.log(change + 'o');
+    } */
+    isCompleted();
   };
+
+  const isCompleted = async () => {
+    await updateCompleted(id, { ...completed });
+  };
+
   return (
     <>
       <Row className="my-1 mr-1">
         <Col span={2} className="">
           <Tooltip title="Completado">
             {" "}
-            <Checkbox onChange={onChange} className="" />
+            <Checkbox onChange={onChange} checked={change} className="" />
           </Tooltip>
         </Col>
         <Col
           span={14}
-          className={cambio ? "text-center line-through" : "text-center"}
+          className={change ? "text-center line-through" : "text-center"}
         >
           {title}
         </Col>
         <Col span={4} className="!flex ">
-          <ModalEdit description={description} title={title} />
+          <ModalEdit id={id} /* description={description} title={title} */ />
         </Col>
         <Col span={4} className="!flex">
-          <ModalDelete description={description} title={title} />
+          <ModalDelete id={id} description={description} title={title} />
         </Col>
       </Row>
     </>

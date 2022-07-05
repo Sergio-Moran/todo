@@ -1,14 +1,31 @@
 import { Button, Modal } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "antd";
 import { FormOutlined } from "@ant-design/icons";
+import { getTask } from "../api";
 
-const App = ({ description, id, title }) => {
+const App = ({ id }) => {
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [task, setTask] = useState({
+    title: "",
+    description: "",
+  });
+
+  useEffect(() => {
+    const getTaskEdit = async () => {
+      const contents = await getTask(id);
+      setTask({
+        title: contents.task.title,
+        description: contents.task.description,
+      });
+    };
+    getTaskEdit();
+  }, [id, setTask]);
 
   const showModal = () => {
     setVisible(true);
+    console.log(task)
   };
 
   const handleOk = () => {
@@ -49,8 +66,8 @@ const App = ({ description, id, title }) => {
           </Button>,
         ]}
       >
-        <Input placeholder={title} className="!rounded-lg !m-1" />
-        <Input placeholder={description} className="!rounded-lg !m-1" />
+        <Input placeholder={task.title} className="!rounded-lg !m-1" />
+        <Input placeholder={task.description} className="!rounded-lg !m-1" />
       </Modal>
     </>
   );
