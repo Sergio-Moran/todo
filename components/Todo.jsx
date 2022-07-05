@@ -13,12 +13,6 @@ const Todo = ({ description, title, id, isOk }) => {
     setCompleted({
       isCompleted: change,
     });
-   /*  console.log(change);
-    if(change){
-      console.log(change + 'a');
-    }else{
-      console.log(change + 'o');
-    } */
     isCompleted();
   };
 
