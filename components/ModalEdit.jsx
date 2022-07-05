@@ -1,4 +1,4 @@
-import { Button, Modal } from "antd";
+import { Button, Modal, DatePicker, Space } from "antd";
 import { useEffect, useState } from "react";
 import { Input } from "antd";
 import { FormOutlined } from "@ant-design/icons";
@@ -25,7 +25,7 @@ const App = ({ id }) => {
 
   const showModal = () => {
     setVisible(true);
-    console.log(task)
+    console.log(task);
   };
 
   const handleOk = () => {
@@ -38,6 +38,10 @@ const App = ({ id }) => {
 
   const handleCancel = () => {
     setVisible(false);
+  };
+
+  const onChange = (date, dateString) => {
+    console.log(date, dateString);
   };
 
   return (
@@ -68,6 +72,9 @@ const App = ({ id }) => {
       >
         <Input placeholder={task.title} className="!rounded-lg !m-1" />
         <Input placeholder={task.description} className="!rounded-lg !m-1" />
+        <Space direction="horizontal">
+          <DatePicker className="!rounded-lg !m-1 !left-40" onChange={onChange} />
+        </Space>
       </Modal>
     </>
   );
