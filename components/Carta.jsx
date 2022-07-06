@@ -40,6 +40,7 @@ const App = () => {
               id={render.id}
               title={render.title}
               isCheck={render.isCompleted}
+              isReminding={render.isRemind}
               actu={actu}
             />
           );

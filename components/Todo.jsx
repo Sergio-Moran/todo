@@ -5,7 +5,7 @@ import ModalDelete from "./ModalDelete";
 import { updateCompleted } from "../api";
 import ButtonRemind from "./ButtonRemind";
 
-const Todo = ({ title, id, isCheck, actu }) => {
+const Todo = ({ title, id, isCheck, actu,isReminding }) => {
   const [change, setChange] = useState(isCheck ? true : false);
   const [completed, setCompleted] = useState({ isCompleted: false });
 
@@ -36,17 +36,14 @@ const Todo = ({ title, id, isCheck, actu }) => {
         >
           {title}
         </Col>
+        <Col span={3} className="!flex">
+          <ButtonRemind id={id} isReminding={isReminding} />
+        </Col>
         <Col span={3} className="!flex ">
-          <ModalEdit
-            id={id}
-            actu={actu}
-          />
+          <ModalEdit id={id} actu={actu} />
         </Col>
         <Col span={3} className="!flex">
           <ModalDelete id={id} title={title} />
-        </Col>
-        <Col span={3} className="!flex">
-          <ButtonRemind />
         </Col>
       </Row>
     </>
