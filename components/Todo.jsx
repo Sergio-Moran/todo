@@ -4,7 +4,7 @@ import ModalEdit from "./ModalEdit";
 import ModalDelete from "./ModalDelete";
 import { updateCompleted } from "../api";
 
-const Todo = ({ title, id, isCheck }) => {
+const Todo = ({ title, id, isCheck, actu }) => {
   const [change, setChange] = useState(isCheck ? true : false);
   const [completed, setCompleted] = useState({ isCompleted: false });
 
@@ -36,7 +36,7 @@ const Todo = ({ title, id, isCheck }) => {
           {title}
         </Col>
         <Col span={4} className="!flex ">
-          <ModalEdit id={id} /* description={description} title={title} */ />
+          <ModalEdit id={id} actu={actu}/* description={description} title={title} */ />
         </Col>
         <Col span={4} className="!flex">
           <ModalDelete id={id} title={title} />

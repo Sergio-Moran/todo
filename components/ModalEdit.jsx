@@ -2,14 +2,15 @@ import { Button, Modal, DatePicker, Space } from "antd";
 import { useEffect, useState } from "react";
 import { Input } from "antd";
 import { FormOutlined } from "@ant-design/icons";
-import { getTask } from "../api";
+import { getTask, updateCompleted } from "../api";
 
-const App = ({ id }) => {
+const App = ({ id, actu }) => {
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
   const [task, setTask] = useState({
     title: "",
     description: "",
+    remindAt: "",
   });
 
   useEffect(() => {
@@ -18,6 +19,7 @@ const App = ({ id }) => {
       setTask({
         title: contents.task.title,
         description: contents.task.description,
+        remindAt: contents.task.remindAt,
       });
     };
     getTaskEdit();
@@ -28,20 +30,31 @@ const App = ({ id }) => {
     console.log(task);
   };
 
-  const handleOk = () => {
+  const isCompleted = async () => {
+    await updateCompleted(id, { ...task });
+  };
+
+  const handleOk = async () => {
     setLoading(true);
+    actu(true)
     setTimeout(() => {
+      actu(false)
       setLoading(false);
       setVisible(false);
     }, 3000);
+
+    isCompleted();
   };
 
   const handleCancel = () => {
     setVisible(false);
   };
 
-  const onChange = (date, dateString) => {
-    console.log(date, dateString);
+  const handlChange = (name, value) => {
+    setTask({
+      ...task,
+      [name]: value,
+    });
   };
 
   return (
@@ -70,11 +83,27 @@ const App = ({ id }) => {
           </Button>,
         ]}
       >
-        <Input placeholder={task.title} className="!rounded-lg !m-1" />
-        <Input placeholder={task.description} className="!rounded-lg !m-1" />
-        <Space direction="horizontal">
-          <DatePicker className="!rounded-lg !m-1 !left-40" onChange={onChange} />
-        </Space>
+        <Input
+          placeholder={task.title}
+          id={"title"}
+          onChange={(e) => handlChange(e.target.id, e.target.value)}
+          className="!rounded-lg !m-1"
+        />
+        <Input
+          placeholder={task.description}
+          id={"description"}
+          onChange={(e) => handlChange(e.target.id, e.target.value)}
+          className="!rounded-lg !m-1"
+        />
+        <Input
+          type="date"
+          id={"remindAt"}
+          value={task.remindAt ? task.remindAt.split("T")[0] : ""}
+          onChange={(e) =>
+            handlChange(e.target.id, e.target.value.split("T")[0])
+          }
+          className="!rounded-lg !m-1 !flex"
+        />
       </Modal>
     </>
   );
