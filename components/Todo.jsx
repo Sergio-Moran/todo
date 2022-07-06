@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Col, Row, Checkbox, Tooltip } from "antd";
+import { Col, Row, Checkbox, Tooltip, Alert } from "antd";
 import ModalEdit from "./ModalEdit";
 import ModalDelete from "./ModalDelete";
 import { updateCompleted } from "../api";
 import ButtonRemind from "./ButtonRemind";
 
-const Todo = ({ title, id, isCheck, actu,isReminding }) => {
+const Todo = ({ title, id, isCheck, actu,isReminding, date }) => {
   const [change, setChange] = useState(isCheck ? true : false);
   const [completed, setCompleted] = useState({ isCompleted: false });
 
@@ -46,6 +46,13 @@ const Todo = ({ title, id, isCheck, actu,isReminding }) => {
           <ModalDelete id={id} title={title} />
         </Col>
       </Row>
+      <Alert
+          message={isReminding ? "Importante " + date.split("T")[0] : ""}
+          className={isReminding ? "" : "!hidden"}
+          type={isReminding ? "info" : "info"}
+          showIcon
+          closable
+        />
     </>
   );
 };

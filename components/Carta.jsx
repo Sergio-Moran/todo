@@ -1,13 +1,17 @@
-import { useState, useEffect, useCallback } from "react";
-import { Card } from "antd";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { Card, Alert } from "antd";
 import Add from "./Add";
 import Todo from "./Todo";
 import { getTasks } from "../api";
-import { data } from "autoprefixer";
 
 const App = () => {
   const [show, setShow] = useState([]);
   const [isActu, setIsActu] = useState("");
+  const [text, setText] = useState({
+    message: "",
+    type: "",
+    isTF: false,
+  });
 
   const actu = (actu) => {
     if (actu) {
@@ -22,24 +26,6 @@ const App = () => {
     setShow(data.tasks);
     console.log("render");
   }, []);
-
-  const compareDates = () => {
-    let today = new Date(); /* .toISOString().split("T")[0] */
-    show.map((dates) => {
-      if (dates.remindAt) {
-        let date = new Date(dates.remindAt); 
-        if (today == date.setDate(date.getDate() - 7)) {
-          console.log('Falta una semana');
-        } else if (today == date.setDate(date.getDate() - 3)) {
-          console.log("Faltan 3 dias");
-        } else if (today == date) {
-          console.log("Se entrega hoy");
-        } else if(today > date){
-          console.log("Tarea incompleta");
-        }
-      }
-    });
-  };
 
   useEffect(() => {
     getTask();
@@ -71,10 +57,11 @@ const App = () => {
               isCheck={render.isCompleted}
               isReminding={render.isRemind}
               actu={actu}
+              date={render.remindAt}
             />
           );
         })}
-        <Add renders={compareDates} />
+        <Add />
       </Card>
     </div>
   );
