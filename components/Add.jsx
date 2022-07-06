@@ -32,7 +32,7 @@ const Add = ({ renders }) => {
       <Button
         className="!border-none"
         onClick={add}
-        icon={<PlusCircleOutlined />}
+        icon={<PlusCircleOutlined style={{color:'green'}} />}
       />
     </div>
   );

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Col, Row, Checkbox, Tooltip, DatePicker, Space } from "antd";
+import { Col, Row, Checkbox, Tooltip } from "antd";
 import ModalEdit from "./ModalEdit";
 import ModalDelete from "./ModalDelete";
 import { updateCompleted } from "../api";
+import ButtonRemind from "./ButtonRemind";
 
 const Todo = ({ title, id, isCheck, actu }) => {
   const [change, setChange] = useState(isCheck ? true : false);
@@ -19,7 +20,7 @@ const Todo = ({ title, id, isCheck, actu }) => {
   const isCompleted = async () => {
     await updateCompleted(id, { ...completed });
   };
-  
+
   return (
     <>
       <Row className="my-1 mr-1">
@@ -30,16 +31,22 @@ const Todo = ({ title, id, isCheck, actu }) => {
           </Tooltip>
         </Col>
         <Col
-          span={14}
+          span={13}
           className={change ? "text-center line-through" : "text-center"}
         >
           {title}
         </Col>
-        <Col span={4} className="!flex ">
-          <ModalEdit id={id} actu={actu}/* description={description} title={title} */ />
+        <Col span={3} className="!flex ">
+          <ModalEdit
+            id={id}
+            actu={actu}
+          />
         </Col>
-        <Col span={4} className="!flex">
+        <Col span={3} className="!flex">
           <ModalDelete id={id} title={title} />
+        </Col>
+        <Col span={3} className="!flex">
+          <ButtonRemind />
         </Col>
       </Row>
     </>
