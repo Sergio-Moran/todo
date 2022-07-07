@@ -36,9 +36,9 @@ const App = ({ id, actu }) => {
 
   const handleOk = async () => {
     setLoading(true);
-    actu(true)
+    actu(true);
     setTimeout(() => {
-      actu(false)
+      actu(false);
       setLoading(false);
       setVisible(false);
     }, 3000);

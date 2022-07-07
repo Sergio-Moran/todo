@@ -16,8 +16,10 @@ const App = () => {
   const actu = (actu) => {
     if (actu) {
       setIsActu(false);
+      console.log('1');
     } else {
       setIsActu(true);
+      console.log('2');
     }
   };
 
@@ -31,10 +33,6 @@ const App = () => {
     getTask();
   }, [isActu, getTask]);
 
-  const renders = () => {
-    /* const aux = [...data, task];
-    setShow(aux); */
-  };
   return (
     <div
       className="w-full flex h-screen items-center justify-center"
@@ -61,7 +59,7 @@ const App = () => {
             />
           );
         })}
-        <Add />
+        <Add actu={actu} />
       </Card>
     </div>
   );
